@@ -1,17 +1,32 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class App extends Component {
+class Controller extends Component {
+    
+    onUp = () =>
+    {
+        this.props.dispatch({type:'UP'})
+    }
+    onDown = () =>
+    {
+        this.props.dispatch({type:'DOWN'})
+    }
+
+
     render() {
         return (
             <View style={styleApp.container}>
                 <View style={styleController.controller}>
                     <Text style={styleController.controllName}>CONTROLLER COMPONENT</Text>
                     <View style={styleController.buttonContainer}>
-                        <TouchableOpacity style={styleController.button}>
+                        <TouchableOpacity 
+                            style={styleController.button} 
+                            onPress={this.onUp}
+                        >
                             <Text style={styleController.buttonText}>+</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styleController.button}>
+                        <TouchableOpacity style={styleController.button} onPress={this.onDown}>
                             <Text style={styleController.buttonText}>-</Text>
                         </TouchableOpacity>
                     </View>
@@ -20,6 +35,8 @@ export default class App extends Component {
         );
     }
 }
+
+export default connect()(Controller);
 
 const styleApp = StyleSheet.create({
     container: {
